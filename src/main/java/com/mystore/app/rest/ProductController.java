@@ -59,16 +59,23 @@ public class ProductController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    // TODO: API to search products by name
+    @GetMapping("/search/{name}")
+    public List<Product> searchProducts(@PathVariable("name") String name) {
+        return productService.searchByName(name);
+    }
 
+    @GetMapping("/filter/{category}")
+    public List<Product> filterByCategory(@PathVariable("category") String category) {
+        return productService.filterByCategory(category);
+    }
 
-    // TODO: API to filter products by category
+    @GetMapping("/filter/price?minPrice={minPrice}&maxPrice={maxPrice}")
+    public List<Product> filterByPrice(@PathVariable("minPrice") double minPrice, @PathVariable("maxPrice") double maxPrice) {
+        return productService.filterByPriceRange(minPrice, maxPrice);
+    }
 
-
-    // TODO: API to filter products by price range
-
-
-    // TODO: API to filter products by stock quantity range
-
-
+    @GetMapping("/filter/stock?minStock={minStock}&maxStock={maxStock}")
+    public List<Product> filterByStock(@PathVariable int minStock, @PathVariable int maxStock) {
+        return productService.filterByStockRange(minStock, maxStock);
+    }
 }
